@@ -1,0 +1,39 @@
+﻿@model BlogProject.Models.Search
+@{
+    ViewBag.Title = "Search";
+
+}
+
+@*<h2>Search</h2>*@
+<div class="row">
+    <span class="badge badge-pill badge-success">@Model.FindResult()</span>
+</div>
+<div class="row ">
+    <div class="col-6 ">
+        @if (Model.BlogsFound.Count() != 0)
+        {
+            <span class="badge badge-primary">Blogs Found</span>
+            foreach (var blog in Model.BlogsFound)
+            {
+                @Html.Partial("_BlogBrowse", blog);
+            }
+
+        }
+
+
+    </div>
+    <div class="col-5 " style="margin-left:20px;">
+        @if (Model.PostsFound.Count() != 0)
+        {
+            <span class="badge badge-primary">Posts Found</span>
+            foreach (var post in Model.PostsFound)
+            {
+                @Html.Partial("_PostSearch", post);
+            }
+
+        }
+        
+    </div>
+
+</div>
+

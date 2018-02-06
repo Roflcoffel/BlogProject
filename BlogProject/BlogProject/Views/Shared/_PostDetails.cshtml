@@ -1,0 +1,89 @@
+﻿@model BlogProject.Models.Post
+
+@using BlogProject.Models;
+
+<div class="row" style="margin-bottom:10px;">
+    <div class="col">
+        <a href="@Url.Action("Article","Post", new { id = Model.Id })"><h2 class="display-4">@Model.Title</h2></a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        @Helper.ShortenInputText(Model.RemoveHTML());
+    </div>
+</div>
+<div class="row" style="color: rgba(135, 135, 135, 0.65)">
+    <div class="col">
+        <h5>@Model.Created.ToShortDateString() by @Model.Blog.User.Firstname @Model.Blog.User.Lastname</h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md">
+        <span class="badge badge-success">@Model.Created.ToShortDateString()</span>
+        <span class="badge badge badge-danger">@Model.PostTagString()</span>
+    </div>
+</div>
+<hr />
+
+<br />
+@*<h3 class="row">Comments:</h3>
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="bg-light clearfix" style="margin-bottom:10px;">
+
+            <div class="float-left">
+                @comment.Body
+            </div>
+
+            @if (@comment.user != null)
+            {
+
+                <div class="float-right">
+                    @comment.Created.ToShortDateString() By @comment.user.Firstname @comment.user.Lastname
+                </div>
+            }
+        </div>
+    }*@
+
+@*<h3 class="mx-auto" style="width: 200px;">Add a comment</h3>*@
+@*<div class="row align-content-center">
+        @using (Html.BeginForm("Comment", "Post", FormMethod.Post, new { @class = "CenterContent" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <div class="form-group">
+
+
+                    <input type="hidden" name="id" value="@Model.Id" />
+
+                    @Html.TextArea("commentbody", new { @class = "form-control", @rows = 10, @cols = 40, @value = "" ,@style="margin-bottom:1px" })
+
+
+
+
+                    <div class="clearfix"></div>
+
+                    <div class="alert alert-warning float-right" role="alert" style="padding:1px;">
+                            0/250 characters
+                        </div>
+                </div>
+                <div class="row form-group" style="clear: both;">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8 CenterContent">
+                        <input type="submit" value="Send" class="btn btn-success btn-lg" />
+
+                        <input type="reset" value="Clear" class="btn btn-danger btn-lg" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+
+
+        }
+
+    </div>*@

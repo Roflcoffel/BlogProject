@@ -1,0 +1,25 @@
+﻿@model BlogProject.Models.Post
+
+@*<div class="row alert alert-light border border-dark"  >
+    <div class="col" >
+        <a href="@Url.Action("Article","Post",new {id = Model.Id })" style="color:blue">@Model.Title</a>
+    </div>
+    <div class="col" style="color:black">
+        <p>@Model.Title</p>
+        <p>@Model.LastChanged.ToShortDateString() by @Model.Blog.User.Firstname @Model.Blog.User.Lastname</p>
+    </div>
+</div>*@
+<div class="card border-light mb-3 row" style="max-width: 25rem;">
+    <div class="card-header text-center">
+        <a href="@Url.Action("Article", "Post",new { id = Model.Id })" style="color:#ff0000" class="font-weight-bold ">@Model.Title</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">
+            <img class="img-thumbnail" src="@Url.Content(Model.ImageUrl)" alt="Post image">
+        </h4>
+        <p class="card-text">
+            <span class="badge badge-pill badge-info">Tags: @Model.PostTagString()</span>
+        <p>@Model.LastChanged.ToShortDateString() by @Model.Blog.User.Firstname @Model.Blog.User.Lastname</p>
+        </p>
+    </div>
+</div>

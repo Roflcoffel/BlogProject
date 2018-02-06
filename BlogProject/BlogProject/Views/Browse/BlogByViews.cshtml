@@ -1,0 +1,30 @@
+﻿@model IEnumerable<BlogProject.Models.Blog>
+
+@{
+    ViewBag.Title = "Most Viewed Blog's";
+}
+
+<div class="row">
+    <div class="col-md-1" style="margin-right: 60px">
+        <a href="@Url.Action("BlogByViews", "Browse")" class="btn btn-dark btn-sm" role="button">
+            Browse blogs by views
+        </a>
+    </div>
+    <div class="col-md">
+        <a href="@Url.Action("Index", "Browse")" class="btn btn-dark btn-sm" role="button">
+            Browse posts by tags
+        </a>
+    </div>
+</div>
+
+<br />
+    
+
+@foreach (var item in Model)
+{
+    <div class="row my-md-5">
+        @Html.Partial("_BlogBrowse", item)
+    </div>
+    <hr />
+}
+    

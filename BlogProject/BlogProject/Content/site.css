@@ -1,0 +1,32 @@
+﻿body {
+    font-size: larger;
+    margin-top: 100px;
+}
+
+.blogCard {
+    margin-top:20px; 
+    padding:10px; 
+    border: solid 1px black;
+}
+
+.CenterContent{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.float-right{
+    float:right;
+}
+
+/*Nav stuff*/
+.navcenter {
+    margin: auto;
+}
+
+.navli {
+    border-right:1px solid rgba(255, 255, 255, 0.90);
+}
+
+.nudge {
+    margin-left: 20px;
+}

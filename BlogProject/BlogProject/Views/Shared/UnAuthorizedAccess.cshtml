@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "UnAuthorizedAccess Page";
+}
+
+@*<h2>You don't have permission to enter this page</h2>*@
+<div class="row">
+    <div class="col-2"></div>
+    <div class="card col-8 ">
+        <div class="card-header">
+            <p style="color:red">@ViewBag.Error</p>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">You don't have permission to enter this page</h5>
+            <p class="card-text">you can log in or go to home page</p>
+            <a href="@Url.Action("Index","Account")" class="btn btn-info col-3">Log in</a>
+            <a href="@Url.Action("Index","Home")" class="btn btn-success col-3">Home Page</a>
+        </div>
+    </div>
+</div>

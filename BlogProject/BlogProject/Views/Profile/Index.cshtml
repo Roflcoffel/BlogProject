@@ -1,0 +1,107 @@
+﻿@model BlogProject.Models.User
+
+@{
+    ViewBag.Title = Model.Firstname + " Profile";
+}
+
+<div class="row">
+    @using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-5">
+                <img src="@Url.Content(Model.ImageUrl)" style="height:200px;width:200px;" class="img-rounded" />
+            </div>
+
+            <div class="col-7">
+                <dl class="dl-horizontal">
+                    @Html.HiddenFor(model => model.id)
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Firstname)
+                    </dt>
+
+                    <dd>
+                        @Html.TextBoxFor(model => model.Firstname)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Lastname)
+                    </dt>
+
+                    <dd>
+                        @Html.TextBoxFor(model => model.Lastname)
+                    </dd>
+
+                    <dd><hr /></dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.TextBoxFor(model => model.Email)
+                    </dd>
+
+                    <dt>
+                        Change Image
+                    </dt>
+
+                    <dd>
+                        <input type="file" name="file" />
+                    </dd>
+
+                    <dd><hr /></dd>
+
+                    <dd>
+                        <input value="Update" type="submit" class="btn btn-primary">
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    }
+</div>
+
+<hr />
+@if (Model.Role.Id == 1)
+{
+    <div class="btn-group col" role="group">
+        <h3 class="col-4">Admin functions:</h3>
+        <a href="@Url.Action("Index", "User")" role="button" class="btn btn-primary btn-md col-2">
+            View Users
+        </a>
+        <a href="@Url.Action("Index", "Blog")" role="button" class="btn btn-warning btn-md col-2">
+            View Blogs
+        </a>
+        <a href="@Url.Action("Index", "Post")" role="button" class="btn btn-danger btn-md col-2">
+            View Posts
+        </a>
+        <a href="@Url.Action("Index", "Tag")" role="button" class="btn btn-dark btn-md col-2">
+            View Tags
+        </a>
+
+    </div>
+    <hr />
+}
+
+
+
+<div class="row">
+
+    <div class="col">
+        <h3>My Blogs</h3>
+
+        <a href="@Url.Action("Create", "Blog")" role="button" class="btn btn-danger btn-sm">
+            Create Blog
+        </a>
+
+        <hr />
+
+        @foreach (var blog in Model.Blogs)
+        {
+            @Html.Partial("_Blog", blog)
+        }
+
+    </div>
+
+</div>
+
+

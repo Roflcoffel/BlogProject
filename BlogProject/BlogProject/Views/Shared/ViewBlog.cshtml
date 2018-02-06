@@ -1,0 +1,76 @@
+﻿@model BlogProject.Models.Blog
+
+@using BlogProject.Models;
+
+@{
+    ViewBag.Title = "Posts in " + Model.Title;
+
+    var user = (User)Session["User"];
+}
+
+@*<h2>BlogViewPage</h2>*@
+
+<div class="row">
+    <div class="col-8 ">
+        @foreach (var item in Model.Posts)
+        {
+            @Html.Partial("_PostDetails", item);
+           
+        }
+        
+    </div>
+    <div class="card col-3 " style="margin-left:auto">
+        <div>
+            <img class="card-img-top" src=@Url.Content(Model.ImageUrl) alt="Blog Image" width="200" length="200">
+
+        </div>
+        
+        <div class="card-header ">
+            <h3 class="row">@Model.Title</h3>
+
+            <div class="row">@Model.Body</div>
+            
+
+        </div>
+        @if (user != null)
+            {
+                if (user.id == Model.User.id)
+                {
+                <a href="@Url.Action("Create","Post", new { id = Model.Id })" role="button" class="btn btn-info btn-sm">
+                    Create Post
+                </a>
+            }
+        }
+        <div class="card-body border border-secondary">
+            @if (Model.Sort().Count() > 0)
+            {
+                foreach (var item in Model.Sort())
+                {
+
+                    <h3 class="row">@item.First().Created.Year</h3>
+                    var Monthslist = item.GroupBy(x => x.Created.Month).ToList();
+                    foreach (var month in Monthslist)
+                    {
+                        <p class="row">
+                            @month.First().Created.ToString("MMMM")
+                            (@month.Count() Posts)
+                        </p>
+                    }
+
+
+                }
+            }
+            else
+            {
+                <p class="row">No posts</p>
+            }
+            
+
+        </div>
+
+        
+    </div>
+
+
+
+</div>

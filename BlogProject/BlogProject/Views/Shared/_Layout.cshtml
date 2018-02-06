@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+
+@using System.Web.Optimization
+@using System
+@using BlogProject.Models
+
+@{
+    DateTime today = DateTime.Today;
+    User user = (User)Session["User"];
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    @Styles.Render("~/Content/css")
+    <link rel="shortcut icon" href="~/Content/images/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary ">
+        <a href="@Url.Action("Index", "Home")" class="nav-link navbar-brand">
+            <img src="~/Content/images/favicon.ico" width="50" height="50" style="vertical-align: middle;" />
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#CollapseBox" aria-controls="CollapseBox" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="CollapseBox">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "BlogByViews" ? "active" : "")">
+                    <a href="@Url.Action("BlogByViews", "Browse")" class="nav-link">
+                       Browse
+                    </a>
+                    
+                </li>
+                @if (Session["User"] != null)
+                {
+                    <li class="nav-item">
+                        <a href="@Url.Action("Create", "Blog")" class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Create" ? "active" : "")">
+                            Create Blog
+                        </a>
+                    </li>
+                }
+            </ul>
+
+            @using (Html.BeginForm("Search", "Browse", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0 mx-auto" }))
+            {
+                @Html.TextBox("searchString", null, new { @style = "width:400px;", @class = "form-control mr-sm-2" })
+                <input class="btn btn-secondary my-2 my-sm-0" type="submit" value="Search" />
+            }
+
+            <ul class="navbar-nav">
+                @if (Session["User"] == null)
+                {
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index", "Account")" class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "Account" ? "active" : "")">
+                            Register/Login
+                        </a>
+                    </li>
+                }
+                @if (Session["User"] != null)
+                {
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index", "Profile")" class="nav-link">
+                            Welcome @user.Firstname
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("LogOff", "Profile")" class="nav-link">
+                            Log Out
+                        </a>
+                    </li>
+
+                }
+            </ul>
+
+            
+       </div>
+</nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>@ViewBag.Title</h3>
+                <p class="text-info">@ViewBag.Message</p>
+                <p class="text-danger">@ViewBag.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5a719b5e491c0100113d76b5&product=sticky-share-buttons"></script>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/Scripts/ckeditor")
+    @Scripts.Render("~/bundles/Scripts/adapters")
+    @Scripts.Render("~/bundles/Scripts/initialize")
+
+    @RenderSection("CreatePostButtons",false)
+
+    <script>
+        $('#isBody').ckeditor();
+        
+        var txtLength = 0;
+
+        $(document).ready(function () {
+            $('#txtAreaComment').on("input",function () {
+
+                txtLength = $(this).val().length
+
+                if (txtLength >= 250) {
+                    txtLength = 250;
+                }
+
+                $('#txtAreaCounter').text(txtLength.toString() + "/250 Characters")
+
+              
+            });
+
+
+            
+        })
+       
+    </script>
+
+</body>
+</html>

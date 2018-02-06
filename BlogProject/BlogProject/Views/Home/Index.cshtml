@@ -1,0 +1,105 @@
+﻿
+@*@{
+    ViewBag.Title = "Index";
+}*@
+
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+        
+
+$(document).ready(function(){
+    $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+    });
+});
+    </script>
+
+    <style>
+        .chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+
+.chip img {
+    float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+        #panel, #flip {
+            padding: 5px;
+            text-align: center;
+            background-color: #555;
+            border: solid 1px #c3c3c3;
+        }
+
+        #panel {
+            padding: 50px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <img src="~/Content/images/we.png" width="250" height="250" style="vertical-align: middle;" />
+    <br /><br />
+   
+    <div id="flip"> <b>Who are we!</b></div>
+    <div id="panel"><br />
+       
+    Lexicon AB
+    <br />ASP.NET<br />
+    First Group<br /><span class="alert-success">Izac</span><span class="alert-primary">Bassam</span><span class="alert-warning">Andreas</span><span class="alert-info">Cesar</span></div>
+
+    
+    <div id="map" style="width:1110px;height:200px;background:white"></div>
+
+    <script>
+function myMap() {
+  var mapCanvas = document.getElementById("map");
+  var mapOptions = {
+    center: new google.maps.LatLng(58.58647022, 16.18955076), zoom: 15
+  };
+  var map = new google.maps.Map(mapCanvas, mapOptions);
+}
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzhqZjcSqtQ9qu7J7s2RbUnL5fDKtWXec&callback=myMap"
+            
+            type="text/javascript"></script>
+    <br />
+  
+    <div class="chip">
+        
+        <img src="~/Content/images/avatar.png" />
+        Izac Houri
+    </div>
+    <div class="chip">
+
+        <img src="~/Content/images/avatar2.png" />
+       Bassam Dali
+    </div>
+    <div class="chip">
+
+        <img src="~/Content/images/avatar3.jpg" />
+        Andreas Johansson
+    </div>
+    <div class="chip">
+
+        <img src="~/Content/images/avatar4.png" />
+        Cesar Chavez
+    </div>
+</body>
+</html>
+
+

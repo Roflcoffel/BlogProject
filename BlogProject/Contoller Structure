@@ -1,0 +1,24 @@
+AccountController
+		Login / Registration //Index
+
+HomeController
+		Search
+		Blog View
+
+BrowseController
+		TagSearch //Index
+		BlogByViews
+		PostsByTags
+
+BlogController
+		Create
+		Edit
+
+PostController
+		Create
+		Edit
+
+ProfileController
+		ProfilePage //Index; Route to Profile/{name}
+		MyBlogs
+		MyPosts

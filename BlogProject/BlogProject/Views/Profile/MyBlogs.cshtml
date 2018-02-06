@@ -1,0 +1,26 @@
+﻿@model IEnumerable<BlogProject.Models.Blog>
+
+@{
+    ViewBag.Title = "MyBlogs";
+}
+
+@*<h2>MyBlogs</h2>*@
+
+<div class="row">
+    <div class="col-10"> </div>
+    <div class="col-2">
+        <button onclick="location.href='@Url.Action("Create", "Blog")'"
+                type="button" class="btn btn-warning btn-md">
+            Create Blog
+        </button>
+    </div>
+    
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        @Html.Partial("_Blog",item)
+    </div>
+   
+}

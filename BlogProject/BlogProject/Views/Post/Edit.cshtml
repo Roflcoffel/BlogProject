@@ -1,0 +1,275 @@
+﻿@model BlogProject.Models.PostTagVM
+
+@{
+    ViewBag.Title = "Edit Post : " + Model.Post.Blog.Title;
+}
+<hr />
+@using (Html.BeginForm("Edit", "Post", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="col-md-3 col-lg-3 " align="center">
+                    <img src="@Url.Content(Model.Post.ImageUrl)" style="height:250px;width:250px;" class="img-rounded" />
+                </div>
+                <div align="center">
+                </div>
+            </div>
+
+            <div class="form-horizontal col-md-9">
+                <div class="col col-md-12 col-lg-12">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Post.Id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Post.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Post.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Post.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Post.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.Post.Body, 2, 20, htmlAttributes: new { @id = "isBody", style = "width: 100%; max-width: 100%;", @placeholder = "Enter Body" })
+                            @Html.ValidationMessageFor(model => model.Post.Body, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Post.Created, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Post.Created, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(model => model.Post.Created, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Post.LastChanged, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Post.LastChanged, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(model => model.Post.LastChanged, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Post.Views, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Post.Views, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(model => model.Post.Views, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        @*@Html.Label("Tags")*@
+                        
+                        <div class="col-md-12">
+                            <h4>Tags</h4>
+                            @foreach (var item in Model.Post.PostTags)
+                            {
+                                @*<label><input type="checkbox" value="" disabled checked>@item.Tag.Name </label>*@
+                                <label><input type="checkbox" value=""  checked>@item.Tag.Name </label>
+                                {
+                                    @*@Html.EditorFor(model => model.TagsEdit.Name )
+                                    @Html.EditorFor(Model => Model.TagsEdit.GetType(item.Tag.Id));*@
+                              
+                                    var itemid = @item.Tag.Id;
+                                    var itemname = @item.Tag.Name;
+                                    <p>@itemid  @itemname</p>
+                                    @*<p>@itemname</p>*@
+
+
+                            for (int i = 0; i < Model.TagsEdit.Count; i++)
+                            {
+                                //if (itemid == (Model.TagsE))
+                                //{
+
+                                //}
+                                        @Html.HiddenFor(m => m.Tags[i].Id)
+                                        @Html.HiddenFor(m => m.Tags[i].Name)
+                                        @Html.CheckBoxFor(m => m.Tags[i].Check)
+                                        @Html.LabelFor(m => m.Tags[i].Check, Model.Tags[i].Name, new { @class = "btn btn-primary" })
+                                    }
+
+                                }
+                                @*@Html.HiddenFor(@item.Tag.Id)
+                                @Html.HiddenFor(@item.Tag.Name)
+                                @Html.CheckBoxFor(@item.Tag.Check)
+
+                                @Html.LabelFor(item.Tag.Check, item.Tag.Name, new { @class = "btn btn-primary" })*@
+
+
+
+
+                            }
+
+                                @for (int i = 0; i < Model.Post.PostTags.Count; i++)
+                            {
+                                @Html.HiddenFor(m => m.Tags[i].Id)
+                                @Html.HiddenFor(m => m.Tags[i].Name)
+                                @Html.CheckBoxFor(m => m.Tags[i].Check)
+                                @Html.LabelFor(m => m.Tags[i].Check, Model.Tags[i].Name, new { @class = "btn btn-primary" })
+                            }
+
+
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <h4>Add More Tags</h4>
+                        @*@Html.Label(" Add More Tags")*@
+                        <div class="col-md-12">
+                            @for (int i = 0; i < Model.Tags.Count; i++)
+                            {
+                                @Html.HiddenFor(m => m.Tags[i].Id)
+                                @Html.HiddenFor(m => m.Tags[i].Name)
+                                @Html.CheckBoxFor(m => m.Tags[i].Check)
+                                @Html.LabelFor(m => m.Tags[i].Check, Model.Tags[i].Name)
+                            }
+                            <br />
+                            <h4 id="newTagHeader" style="display:none">New Tags</h4>
+                            <div id="tagList"></div>
+
+
+                            @Html.HiddenFor(m => m.Post.Blog.Id)
+                            @Html.HiddenFor(m => m.Post.Blog.Title)
+                            @Html.HiddenFor(m => m.Post.Blog.Body)
+                            @Html.HiddenFor(m => m.Post.Blog.Created)
+                            
+                            <div class="text-right">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn  btn-default" data-toggle="modal" data-target="#myModal">Add new tags</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Change Picture", htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            <input type="file" name="file" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+}
+
+<hr />
+<div class="text-right">
+    <div class="col-md-12">
+        @Html.ActionLink("Return to My MyPosts", "MyPosts", "Profile", new { id = Model.Post.Blog.Id }, new { @class = "btn  btn-default" })
+    </div>
+</div>
+
+<!--______________________________________________________-->
+<!-- Trigger the modal with a button -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Tags</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+
+                        <div id="divCont">
+                            <div><input type="text" name="txttest" class="tagtest" style="width:200px; margin-bottom:10px" />&nbsp;<input type="button" onclick="AddTextBox()" value="Add" class="btn btn-sm btn-success" /></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:center;display:none" id="loaderDiv">
+                    <img src="~/Content/images/Load_2.gif" width="150" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input type="reset" value="submit" class="btn btn-primary" id="btnsubmit()" onclick="btnsubmit()" />
+            </div>
+        </div>
+    </div>
+</div>
+<!--____________________________________-->
+<script type="text/javascript">
+    function GetDynamicTextbox(value) {
+        return '<div><input type="text" name="txttest" class="tagtest" style="width:200px; margin-bottom:10px" />&nbsp;<input type="button" onclick="RemoveTextBox(this)" value="Remove" class="btn btn-sm btn-primary"/></div>';
+    }
+
+    function AddTextBox() {
+        var div = document.createElement('DIV');
+        div.innerHTML = GetDynamicTextbox("");
+        document.getElementById("divCont").appendChild(div);
+    }
+
+    function RemoveTextBox(div) {
+        document.getElementById("divCont").removeChild(div.parentNode.parentNode);
+    }
+</script>
+
+<script type="text/javascript">
+
+    function btnsubmit() {
+        $("#loaderDiv").show();
+
+        var name = $("#newtag").val();
+
+        $.ajax({
+            url: "/Tag/CreateTag",
+            type: "Post",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            data: JSON.stringify({
+                txtValue: $(".tagtest").serialize()
+            }),
+            success: function (parsedData) {
+                $("#newTagHeader").css("display", "inline")
+
+                var counter = 0;
+                var numTags = parseInt($("#numTags").val());
+
+                $.each(parsedData.nyaTags, function () {
+
+                    var part1 = "<input id='Tags_" + numTags + "' name='Tags[" + numTags + "].Id' type='hidden' value='" + parsedData.nyaIds[counter] + "' />";
+                    var part2 = "<input id='Tags_" + numTags + "__Name' name='Tags[" + numTags + "].Name' type='hidden' value='" + this + "' />";
+                    var part3 = "<input id='Tags_" + numTags + "__Check' name='Tags[" + numTags + "].Check' type='checkbox' value='true' />";
+                    var part4 = "<label class='btn btn-primary' for='Tags_" + numTags + "__Check'>" + this + "</label>";
+
+                    $('#tagList').append(part1 + part2 + part3 + part4);
+
+                    counter = counter + 1;
+                    numTags = numTags + 1;
+                })
+
+                $("#partial1").innerHTML;
+                $("#loaderDiv").hide();
+                alert("ajax success");
+            }
+        })
+    }
+</script>

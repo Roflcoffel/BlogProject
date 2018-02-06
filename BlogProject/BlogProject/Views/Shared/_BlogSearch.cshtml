@@ -1,0 +1,29 @@
+﻿@model  BlogProject.Models.Blog
+@*<div class="alert alert-light border border-dark">
+        <div class="row">
+
+            <a href="@Url.Action("ViewBlog", "Blog",new { id = Model.Id })" style="color:blueviolet" class="font-weight-bold ">@Model.Title</a>
+
+        </div>
+
+        <div col="col" style="color:black">
+            <img class="img-thumbnail" src="@Url.Content(Model.ImageUrl)" alt="Card image">
+            <p>@Model.Created.ToShortDateString() by @Model.User.Firstname  @Model.User.Lastname</p>
+        </div>
+
+    </div>*@
+<div class="card border-light mb-3 row" style="max-width: 25rem;">
+    <div class="card-header text-center">
+        <a href="@Url.Action("ViewBlog", "Blog",new { id = Model.Id })" style="color:#ff0000" class="font-weight-bold ">@Model.Title</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">
+            <img class="img-thumbnail" src="@Url.Content(Model.ImageUrl)" alt="Blog image">
+        </h4>
+        <p class="card-text">
+
+            <span class="badge badge-pill badge-info">Tags: @Model.BlogTagString()</span>
+        <p>@Model.Created.ToShortDateString() by @Model.User.Firstname  @Model.User.Lastname</p>
+        </p>
+    </div>
+</div>

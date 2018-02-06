@@ -1,0 +1,99 @@
+﻿@model BlogProject.Models.Post
+
+@using BlogProject.Models;
+
+@{
+    ViewBag.Title = "Article";
+
+    var user = ((User)Session["User"]);
+
+
+}
+
+<img class="img-fluid" src="@Url.Content(Model.ImageUrl)" alt="" />
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-8">
+
+
+        <hr />
+
+
+        <h1 style="text-align: center">@Model.Title</h1>
+        <hr />
+        @Html.Raw(Model.Body)
+
+        <br />
+        <h3>Comments:</h3>
+
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="clearfix" style="margin-bottom:10px;">
+
+                <div class="">
+                    @comment.Body
+                </div>
+
+                @if (@comment.user != null)
+                {
+                    <div class="float-right " style="color: rgba(135, 135, 135, 0.65)">
+                        @comment.Created.ToShortDateString() By @comment.user.Firstname @comment.user.Lastname <a href="@Url.Action("DeleteComment", "Post", new {id = comment.Id})">@(comment.user.id == (user != null ? user.id : 0) ? "Delete" : "")</a>
+                    </div>
+                }
+            </div>
+            <hr />
+        }
+        @if (user != null)
+        {
+            <h3 class="mx-auto" style="width: 200px;">Add a comment</h3>
+            <div class="row align-content-center">
+                @using (Html.BeginForm("Comment", "Post", FormMethod.Post, new { @class = "CenterContent" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+
+
+                            <input type="hidden" name="id" value="@Model.Id" />
+
+                            @Html.TextArea("commentbody", new { @maxlength = "250", @id = "txtAreaComment", @class = "form-control", @rows = 5, @cols = 30, @value = "", @style = "margin-bottom:1px" })
+
+                            <div class="clearfix"></div>
+
+                            <div class="alert alert-warning float-right" role="alert" style="padding:1px;">
+                                <span id="txtAreaCounter">0/250 characters</span>
+                            </div>
+                        </div>
+
+                        <div class="row form-group" style="clear: both;">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <input type="submit" value="Send" class="btn btn-success btn-lg" />
+
+                                <input type="reset" value="Clear" class="btn btn-danger btn-lg" />
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <a href="@Url.Action("Index","Account") " style="color:red">Log in to write a comment</a>
+                </div>
+
+            </div>
+            
+        }
+
+            </div>
+            <div class="col-2"></div>
+        </div>
+
+

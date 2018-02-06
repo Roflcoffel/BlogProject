@@ -1,0 +1,5 @@
+﻿@model BlogProject.Models.Tag
+
+<a href="@Url.Action("PostByTags", "Browse" , new { Id = Model.Id })" style="margin: 5px" class="btn btn-dark btn-sm @(Model.PostTags.Count() != 0 ? "": "disabled")">
+    @Model.Name   (@Model.PostTags.Count() views)
+</a>

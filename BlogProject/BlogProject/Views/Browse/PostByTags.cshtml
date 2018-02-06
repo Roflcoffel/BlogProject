@@ -1,0 +1,34 @@
+﻿@model IEnumerable<BlogProject.Models.Post>
+
+@using BlogProject.Models;
+
+@{
+    ViewBag.Title = "PostByTags";
+    string tagName = ((Tag)ViewBag.Tag).Name;
+}
+
+<a href="@Url.Action("Index","Browse")" role="button" class="btn btn-primary">
+    Back To Browse
+</a>
+
+<div class="row" style="margin-top:10px; padding: 20px; text-align: center">
+    <h3>Posts Containing tag: @tagName</h3>
+</div>
+
+@foreach (var post in Model) {
+    <div class="row" style="margin-top: 5px; padding: 10px; border: solid 1px black">
+        <div class="col-8">
+            <a href="@Url.Action("ViewBlog","Blog",new { Id = post.Blog.Id})" role="button" class="btn btn-info btn-lg" style="font-size: 35px">@post.Title</a>
+        </div>
+        <div class="col">
+            <div class="row bg-info text-white" style="margin-top: 5px; padding: 2px; border: solid 1px black;">
+                <b>@post.Created.ToShortDateString() by @post.Blog.User.Firstname</b> 
+            </div>
+            <div class="row bg-success text-white" style="margin-top: 5px; padding: 2px; border: solid 1px black;">
+                <b>From: @post.Blog.Title</b>
+            </div>
+        </div>
+    </div>
+}
+
+

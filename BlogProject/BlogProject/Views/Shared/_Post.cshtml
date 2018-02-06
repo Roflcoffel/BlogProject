@@ -1,0 +1,38 @@
+﻿@model BlogProject.Models.Post
+
+@{ 
+    var PostTitle = Model.Title;
+    var PostViews = Model.Views;
+    var PostDateCreated = Model.Created;
+    
+    var PostDateUpdated = Model.LastChanged;
+}
+<div class="blogCard col">
+    <div class="row">
+        <div class="col-9">
+            <a href="@Url.Action("Article","Post",new {id = Model.Id })" class="btn btn-primary btn-md col-3"   >@PostTitle</a>
+            <span class="badge badge-dark">@PostViews Views</span>
+
+        </div>
+        <div class="col-3">
+            
+            <a href="@Url.Action("Edit","Post",new {postId = Model.Id })" class="btn btn-info btn-sm">Edit</a>
+            <a href="@Url.Action("Delete","Post",new {postId = Model.Id })"  class="btn btn-danger btn-sm">Delete</a>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <span class="badge badge-success">Created: @PostDateCreated.ToShortDateString()</span>
+            <span class="badge badge-success">Updated: @PostDateUpdated.ToShortDateString()</span>
+        </div>
+       
+        
+        
+    </div>
+
+
+</div>
+
+
+

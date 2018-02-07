@@ -125,14 +125,15 @@ namespace BlogProject.Controllers
             if (user != null)
             {
                 User dbUser = db.Users.Find(user.id);
-                if (user.Role.Id == 1 || post.Blog.User.id == dbUser.id)
+                if (post.Blog.User.id == dbUser.id)
                 {
-                    PostTagVM obj = new PostTagVM();
-                    obj.Post = post;
-                    obj.Tags = db.Tags.ToList();
+                    PostTagVM postTag = new PostTagVM();
 
-                    return View(obj);
+                    postTag.Post = post;
+                    //postTag.Post.Blog = db.Blogs.Find(postTag.Post.Blog.Id);
+                    postTag.Tags = db.Tags.ToList();
 
+                    return View(postTag);
                 }
             }
             

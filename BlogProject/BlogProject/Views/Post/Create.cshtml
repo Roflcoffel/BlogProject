@@ -105,7 +105,7 @@
                             <div class="form-group">
 
                                 <div id="divCont">
-                                    <div><input type="text" name="txttest" class="tagtest" style="width:200px; margin-bottom:10px" />&nbsp;<input type="button" onclick="AddTextBox()" value="Add" class="btn btn-sm btn-success" /></div>
+                                    <div><input type="text" id="json0" class="tagtest" style="width:200px; margin-bottom:10px" />&nbsp;<input type="button" onclick="AddTextBox()" value="Add" class="btn btn-sm btn-success" /></div>
                                 </div>
                                 @*<div class="col-md-10">
                                         <input id="newtag" name="newtag" />
@@ -132,17 +132,21 @@
 </div>
 
 <script type="text/javascript">
+    var jsonCount = 0;
+
     function GetDynamicTextbox(value) {
-        return '<div><input type="text" name="txttest" class="tagtest" style="width:200px; margin-bottom:10px" />&nbsp;<input type="button" onclick="RemoveTextBox(this)" value="Remove" class="btn btn-sm btn-primary"/></div>';
+        return '<div><input type="text" id="json' + value + '" class="tagtest" style="width:200px; margin-bottom:10px" />&nbsp;<input type="button" onclick="RemoveTextBox(this)" value="Remove" class="btn btn-sm btn-primary"/></div>';
     }
 
     function AddTextBox() {
+        jsonCount += 1
         var div = document.createElement('DIV');
-        div.innerHTML = GetDynamicTextbox("");
+        div.innerHTML = GetDynamicTextbox(jsonCount);
         document.getElementById("divCont").appendChild(div);
     }
 
     function RemoveTextBox(div) {
+        jsonCount -= 1
         document.getElementById("divCont").removeChild(div.parentNode.parentNode);
     }
 </script>
@@ -156,14 +160,22 @@
 
         var name = $("#newtag").val();
 
+        var jsonObject = {
+            txtValue: []
+        }
+
+        for (i = 0; i < $(".tagtest").length; i++) {
+            jsonObject.txtValue[i] = $("#json" + i).val()
+        }
+
         $.ajax({
             url: "/Tag/CreateTag",
             type: "Post",
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
-            data: JSON.stringify({
-                txtValue: $(".tagtest").serialize()
-            }),
+            data: JSON.stringify(
+                jsonObject
+            ),
             success: function (parsedData) {
 
                 //parsedData.nyaTags.push($(this).siblings('p').text());
@@ -176,10 +188,10 @@
 
 
                     var part1 = "<input id='Tags_" + numTags + "' name='Tags[" + numTags + "].Id' type='hidden' value='" + parsedData.nyaIds[counter] + "' />";
-                    var part2 = "<input id='Tags_" + numTags + "__Name' name='Tags[" + numTags + "].Name' type='hidden' value='" + this + "' />";
+                    var part2 = "<input id='Tags_" + numTags + "__Name' name='Tags[" + numTags + "].Name' type='hidden' value='" + decodeURI(this) + "' />";
                     var part3 = "<input style='display:none' id='Tags_" + numTags + "__Check' name='Tags[" + numTags + "].Check' type='checkbox' value='true' />";
-                    var part4 = "<label class='btn btn-primary m-1' for='Tags_" + numTags + "__Check'>" + this + "</label>";
-
+                    var part4 = "<label class='btn btn-primary m-1' for='Tags_" + numTags + "__Check'>" + decodeURI(this) + "</label>";
+                    debugger
                     $('#tagList').append(part1 + part2 + part3 + part4);
                             
                     counter = counter + 1;

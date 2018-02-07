@@ -77,28 +77,15 @@ function myMap() {
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzhqZjcSqtQ9qu7J7s2RbUnL5fDKtWXec&callback=myMap"
             
             type="text/javascript"></script>
-    <br />
-  
-    <div class="chip">
-        
-        <img src="~/Content/images/avatar.png" />
-        Izac Houri
-    </div>
-    <div class="chip">
+  <br />
+    <div class="row">
+        <div class="col-5">
 
-        <img src="~/Content/images/avatar2.png" />
-       Bassam Dali
-    </div>
-    <div class="chip">
-
-        <img src="~/Content/images/avatar3.jpg" />
-        Andreas Johansson
-    </div>
-    <div class="chip">
-
-        <img src="~/Content/images/avatar4.png" />
-        Cesar Chavez
-    </div>
+        </div>
+        <div class="col">
+            <a role="button" href="@Url.Action("ContactUs","Home")"  class="btn btn-outline-primary">Contact us!</a>
+        </div>
+    </div> 
 </body>
 </html>
 

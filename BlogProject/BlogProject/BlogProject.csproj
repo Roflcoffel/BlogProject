@@ -581,6 +581,7 @@
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\BlogContext.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\Encrypt.cs" />
     <Compile Include="Models\CustomErrorHandler.cs" />
     <Compile Include="Models\Helper.cs" />
@@ -626,6 +627,7 @@
     <Content Include="Views\Post\Edit.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Home\ContactUs.cshtml" />
     <None Include="Views\Shared\ViewBlog.cshtml" />
     <Content Include="Views\Shared\_BlogSearch.cshtml" />
     <Content Include="Views\Shared\_PostDetails.cshtml" />

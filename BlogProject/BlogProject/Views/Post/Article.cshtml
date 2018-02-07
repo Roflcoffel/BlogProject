@@ -3,18 +3,21 @@
 @using BlogProject.Models;
 
 @{
-    ViewBag.Title = "Article";
+    
 
     var user = ((User)Session["User"]);
 
 
 }
 
-<img class="img-fluid" src="@Url.Content(Model.ImageUrl)" alt="" />
+<div class="text-center">
+    <img class="img-fluid" src="@Url.Content(Model.ImageUrl)" alt="" style="height:300px;width:300px;" />
+</div>
 
 <div class="row">
+
     <div class="col-1"></div>
-    <div class="col-8">
+    <div class="col-11">
 
 
         <hr />
@@ -58,7 +61,7 @@
 
                             <input type="hidden" name="id" value="@Model.Id" />
 
-                            @Html.TextArea("commentbody", new { @maxlength = "250", @id = "txtAreaComment", @class = "form-control", @rows = 5, @cols = 30, @value = "", @style = "margin-bottom:1px" })
+                            @Html.TextArea("commentbody", new { @maxlength = "250", @id = "txtAreaComment", @class = "form-control", @rows = 5, @cols = 200, @value = "", @style = "margin-bottom:1px" })
 
                             <div class="clearfix"></div>
 
@@ -68,7 +71,7 @@
                         </div>
 
                         <div class="row form-group" style="clear: both;">
-                            <div class="col-md-2"></div>
+                            @*<div class="col-md-2"></div>*@
                             <div class="col-md-8">
                                 <input type="submit" value="Send" class="btn btn-success btn-lg" />
 
@@ -94,6 +97,6 @@
 
             </div>
             <div class="col-2"></div>
-        </div>
+</div>
 
 

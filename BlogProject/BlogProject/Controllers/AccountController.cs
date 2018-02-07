@@ -120,7 +120,7 @@ namespace BlogProject.Controllers
                     return RedirectToAction("Index", "Profile");
                 }
 
-                ViewBag.ErrorMessage = "Email already in use!";
+                TempData["ErrorMessage"] = "Email already in use!";
 
                 return RedirectToAction("Index");
 

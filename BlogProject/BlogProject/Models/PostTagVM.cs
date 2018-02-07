@@ -9,11 +9,15 @@ namespace BlogProject.Models
     {
         public Post Post{ get; set; }
         public List<Tag> Tags { get; set; }
+        
+        //
+        public List<Tag> TagsEdit { get; set; }
 
         public PostTagVM()
         {
             Post = new Post();
             Tags = new List<Tag>();
+                       TagsEdit = new List<Tag>();
         }
     }
 }

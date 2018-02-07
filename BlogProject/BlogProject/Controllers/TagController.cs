@@ -180,22 +180,19 @@ namespace BlogProject.Controllers
         }
 
         [HttpPost]
-        public JsonResult CreateTag(FormCollection fc, string txtValue)
+        public JsonResult CreateTag(FormCollection fc, string[] txtValue)
         {
-            string valuesFromView = Convert.ToString(txtValue);
-            string[] separators = { "=", "&", "txttest" };
-
-            string[] words = valuesFromView.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-
+            
 
             List<string> value = new List<string>();
-            for (int i = 0; i < words.Length; i++)
+            for (int i = 0; i < txtValue.Length; i++)
             {
-                var tagName = words[i].ToLower();
+                var tagName = txtValue[i].ToLower();
+
                 if (db.Tags.SingleOrDefault(t => t.Name.ToLower() == tagName) == null)
                 {
-                    value.Add(words[i]);
-                    db.Tags.Add(new Tag { Name = words[i] });
+                    value.Add(tagName);
+                    db.Tags.Add(new Tag { Name = tagName });
                 }
             }
 
@@ -209,10 +206,6 @@ namespace BlogProject.Controllers
                 tagIds.Add(tag.Id);
 
             }
-
-
-
-
 
             var result = new { Success = "True", Message = "Nya Tags", nyaTags = value, nyaIds = tagIds };
             return Json(result, JsonRequestBehavior.AllowGet);

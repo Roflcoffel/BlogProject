@@ -1,0 +1,213 @@
+﻿@*@{
+        ViewBag.Title = "Index";
+    }*@
+@model BlogProject.Models.ContactUs
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+
+
+$(document).ready(function(){
+    $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+    });
+});
+    </script>
+
+    <style>
+        .chip {
+            display: inline-block;
+            padding: 0 25px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+            border-radius: 25px;
+            background-color: #f1f1f1;
+        }
+
+            .chip img {
+                float: left;
+                margin: 0 10px 0 -25px;
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+            }
+
+        #panel, #flip {
+            padding: 5px;
+            text-align: center;
+            background-color: #555;
+            border: solid 1px #c3c3c3;
+        }
+
+        #panel {
+            padding: 50px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+   
+   
+    @using (Html.BeginForm("ContactUs", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <form>
+            <fieldset>
+                <legend>Contact Us!</legend>
+
+                <span id="message" class="row " style="color:red">@ViewBag.MessageSendTop1</span>
+                <br />
+                @*<div class="form-group row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    
+                    @Html.ValidationMessageFor(model => model.Email, "", new {@style = "color:red; font-size:15px; font-style:bold; float:right; " })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter email!                                                                 Ex: mymail@myblog.se" } })
+                    @*<label for="Email">Email address      </label> <small class="float-right" style="color:red"> @ViewBag.MessageSendTop1</small>
+                    <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email!                                                                 Ex: mymail@myblog.se" required>*@
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group ">
+                    <label for="PhoneNumber">Phone number</label>
+
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @style = "color:red; font-size:15px; font-style:bold; float:right;" })
+                    @*<input type="tel" class="form-control" id="PhoneNumber" name="PhoneNumber" aria-describedby="PhoneHelp" placeholder="Enter phone number!                                                        Ex: 0701234567" required>*@
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter phone number!                                                        Ex: 0701234567"} })
+                    <small id="PhoneHelp" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
+                    
+                </div>
+                @*<div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>*@
+                <div class="form-group">
+                    <label for="Questiontype">Question type</label>
+                    <select class="form-control" id="Questiontype" name="Questiontype">
+                        <option disabled="disabled" selected="selected">Choose type of your question please!</option>
+                        <option>I can not log in to my account!</option>
+                        <option>I can not creat a new blog!</option>
+                        <option>I can not creat a new post!</option>
+                        <option>I can not write or delete a comment!</option>
+                        <option>Another question!</option>
+                    </select>
+                </div>
+                @*<div class="form-group">
+                        <label for="exampleSelect2">Example multiple select</label>
+                        <select multiple="" class="form-control" id="exampleSelect2">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>*@
+                <div class="form-group">
+                    <label for="Text">Your question</label>
+                    <textarea class="form-control" id="Text" name="Text" rows="3" placeholder="Insert your question please!"></textarea>
+                    <small id="exampleTextareaHelp" class="form-text text-muted">Your text must be less than 80 character .</small>
+
+                </div>
+                @*<div class="form-group">
+                        <label for="exampleInputFile">File input</label>
+                        <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                        <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+                    </div>
+                    <fieldset class="form-group">
+                        <legend>Radio buttons</legend>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                Option one is this and that—be sure to include why it's great
+                            </label>
+                        </div>*@
+                @*<div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                            Option two can be something else and selecting it will deselect option one
+                        </label>
+                    </div>
+                    <div class="form-check disabled">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">
+                            Option three is disabled
+                        </label>
+                    </div>*@
+            </fieldset>
+            <fieldset class="form-group">
+                <legend>how do you want us to reply your question?</legend>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" id="EmailYou" name="option"  value="option1" checked="">
+                        Option one is email you. &#x1F603
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" id="SmsYou" name="option"  value="option2" checked="">
+                        Option two is SMS to your phone. &#x1f606
+                    </label>
+                </div>
+            </fieldset>
+            <div class="row">
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div> 
+                
+                @if (ViewBag.MessageSend != null)
+                {
+                    <div class="col-9">
+                        <h2>
+                            <span class="row badge badge-info">@ViewBag.MessageSend</span>
+
+                        </h2>
+                    </div>
+}
+            </div>
+            @*</fieldset>*@
+        </form>
+    }
+    
+
+    
+    <br /><br />
+    <div class="chip">
+
+        <img src="~/Content/images/avatar.png" />
+        Izac Houri
+    </div>
+    <div class="chip">
+
+        <img src="~/Content/images/avatar2.png" />
+        Bassam Dali
+    </div>
+    <div class="chip">
+
+        <img src="~/Content/images/avatar3.jpg" />
+        Andreas Johansson
+    </div>
+    <div class="chip">
+
+        <img src="~/Content/images/avatar4.png" />
+        Cesar Chavez
+    </div>
+</body>
+</html>
+
+@section fadeout {
+    <script>
+        $(document).ready(function () {
+           
+           $("#message").fadeOut("slow");
+            
+        });
+    </script>
+}

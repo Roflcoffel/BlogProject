@@ -30,6 +30,7 @@
             @Html.DisplayNameFor(model => model.HashCode)
         </th>
         <th></th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -48,17 +49,31 @@
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.ImageUrl)*@
-            <img src="@Url.Content(item.ImageUrl)" style="height:200px;width:200px;" class="img-rounded img-thumbnail" />
+            <img src="@Url.Content(item.ImageUrl)" style="height:100px;width:100px;" class="img-rounded img-thumbnail" />
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.HashCode)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+        <td style="padding-right:0em">
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }, new { @class = "btn btn-success btn-sm" } )
             @*@Html.ActionLink("Details", "Details", new { id=item.id }) |*@
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.id })*@
+        </td>
+        <td style="padding-left:0em">
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |*@
+            @*@Html.ActionLink("Details", "Details", new { id=item.id }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger btn-sm" })
         </td>
     </tr>
 }
 
 </table>
+
+<hr />
+<div class="row text-right">
+    <div class="col-8"></div>
+    <div class="col-4">
+        <a href="@Url.Action("Index","Profile")" style="color:red">Return to Admin functions</a>
+    </div>
+
+</div>
